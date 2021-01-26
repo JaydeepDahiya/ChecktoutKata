@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.jaydeepdahiya.exception.InvalidItemException;
 import com.jaydeepdahiya.model.Offer;
 import com.jaydeepdahiya.model.PricingRule;
 import com.jaydeepdahiya.repository.CheckoutRepository;
-import com.jaydeepdahiya.service.CheckoutService;
-import com.jaydeepdahiya.service.CheckoutServiceImpl;
 
 class CheckoutKataServiceTest {
 
@@ -58,4 +58,18 @@ class CheckoutKataServiceTest {
         assertEquals(280, checkoutService.getTotalPrice());
 	}
 	    
+	@Test
+    void testInvalidItem() {
+        
+        Set<PricingRule> pricingRules = new HashSet<>(Arrays.asList(
+        		new PricingRule("A", 50)
+        ));
+
+        CheckoutRepository checkoutRepository = new CheckoutRepository();
+        checkoutRepository.setPricingRules(pricingRules);
+        CheckoutService checkoutService = new CheckoutServiceImpl(checkoutRepository);
+
+		Assertions.assertThrows(InvalidItemException.class, () -> checkoutService.scan("B"));
+    }
+	
 }
