@@ -18,6 +18,14 @@ Our checkout accepts items in any order, so that if we scan a B, an A, and anoth
 
 ### Running the tests
 
-To run the tests ensure that Maven is installed and then run the following from the project directory.
+Ensure that Maven is installed and then run the following from the project directory.
 
 `mvn test`
+
+### To clean target, create test report and package
+
+Ensure that Maven is installed and then run the following from the project directory.
+
+`mvn clean package`
+
+NOTE: Jacoco test reports can be found in \target\site\jacoco\index.html
