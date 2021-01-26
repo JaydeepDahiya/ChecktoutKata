@@ -1,4 +1,4 @@
-package com.jaydeepdahiya;
+package com.jaydeepdahiya.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
