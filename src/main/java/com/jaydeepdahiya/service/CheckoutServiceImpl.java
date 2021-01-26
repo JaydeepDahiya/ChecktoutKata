@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.jaydeepdahiya.exception.InvalidItemException;
 import com.jaydeepdahiya.model.PricingRule;
 import com.jaydeepdahiya.repository.CheckoutRepository;
 
@@ -22,8 +23,12 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 	@Override
 	public void scan(String sku) {
-		itemQuantities.putIfAbsent(sku, 0);
-		itemQuantities.compute(sku, (s, i) -> ++i);
+		if (prices.containsKey(sku)) {
+			itemQuantities.putIfAbsent(sku, 0);
+			itemQuantities.compute(sku, (s, i) -> ++i);
+		} else {
+			throw new InvalidItemException();
+		}
 	}
 
 	@Override
